@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link rel="shortcut icon" href="resources/images/f.ico"
+		type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Oxygen'
+		rel='stylesheet' type='text/css' />
+	<h:outputStylesheet library="css" name="style.css" />
+	<title>Group</title>
+</h:head>
+<h:body>
+	<h:form>
+		<ui:insert name="header">
+			<ui:include src="common-header.xhtml" />
+		</ui:insert>
+		<div class="content">
+			<p:layout style="margin: 0 auto" size="600">
+
+				<p:layoutUnit position="west" resizable="true" size="400"
+					minSize="40" maxSize="300" style="background-color: #ADD8E6">
+					<h:form>
+						<h2 style="margin-left: 20px">Members</h2>
+						<p:separator />
+
+						<p:panel>
+							<h:panelGrid id="members">
+								<table>
+									<ui:repeat varStatus="status" var="member"
+										value="#{groupBean.members}">
+										<tr>
+											<td><p:commandLink value="#{member.name}"
+													action="#{profileBean.selectUserByUserName(member.name)}"
+													process="@form" update="@form" /></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+					</h:form>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center" style="height: 72vh; width: 400px">
+					<h:form>
+						<div class="center">
+							<p:outputLabel value="#{groupBean.group.name}"
+								style="margin: 20px 20px; float: left; font-size: 30px" />
+							<p:panel rendered="#{groupBean.isOwner()}">
+								<br />
+
+								<p:panel id="search-users" style="margin-top: 20px">
+									<p:outputLabel value="Add Members" />
+									<p:separator />
+									<p:inputText id="search" size="15" class="searchInput"
+										placeholder="Search Users"
+										value="#{groupBean.userNameFragment}" />
+									<p:commandButton value="Search" action="#{groupBean.search()}"
+										ajax="true" icon="ui-icon-search" process="search-users"
+										update="search-users" class="search" />
+
+									<p:panel>
+										<h:panelGrid style="width: 100%">
+											<table style="width: 100%">
+												<ui:repeat var="user" style="width: 100%"
+													value="#{groupBean.searchedUsers}" varStatus="status">
+													<tr>
+														<td><p:commandLink id="user"
+																action="#{profileBean.selectUserByUserName(user.name)}"
+																value="#{user.name}" /> <p:commandButton value="Invite"
+																action="#{groupBean.inviteUser(user)}"
+																style="float: right" process="@form" update="@form"/></td>
+													</tr>
+												</ui:repeat>
+											</table>
+										</h:panelGrid>
+									</p:panel>
+								</p:panel>
+							</p:panel>
+							<p:panel style="border: none; height: 100px"
+								rendered="#{profileBean.userOfThePage()}">
+
+
+								<p:outputPanel styleClass="none"
+									rendered="#{authenticationBean.isLoggedIn() and !profileBean.thisUser()}">
+									<p:commandButton value="Friend"
+										rendered="#{!profileBean.isFriend()}"
+										disabled="#{profileBean.isWaiting()}"
+										style="margin: 20px 51% 10px 10%; float:right"
+										action="#{profileBean.friend()}" process="@form"
+										update="@form" />
+									<p:commandButton value="Unfriend"
+										rendered="#{profileBean.isFriend()}"
+										style="margin: 20px 51% 10px 10%; float:right"
+										action="#{profileBean.unFriend()}" process="@form"
+										update="@form" />
+								</p:outputPanel>
+							</p:panel>
+							<p:panel style="border: none">
+								<p:panel rendered="#{authenticationBean.isLoggedIn()}"
+									style="border:none; background:  #ADD8E6; height: 70px">
+									<p:inputTextarea id="text" rows="2" cols="33"
+										placeholder="What's on your mind?" value="#{groupBean.postText}"
+										maxlength="500" counter="display"
+										counterTemplate="{0} characters remaining." class="postBox" />
+
+									<p:commandButton value="Post" action="#{groupBean.groupPost()}"
+										class="postButton" process="@form" update="@form"></p:commandButton>
+								</p:panel>
+
+								<h:outputText id="display" style="margin-right: 400px" />
+
+								<p:panel id="posts" header="Group Posts" class="posts">
+
+									<h:panelGrid>
+										<dl>
+											<ui:repeat var="post" value="#{groupBean.posts}"
+												varStatus="status">
+												<dt>
+													<p:commandLink
+														action="#{profileBean.selectUserByUserName(post.userByPosterId.name)}"
+														process="@form" update="@form"
+														value="#{post.user.name} #{post.timestamp}" />
+												</dt>
+												<dd>
+													<h:outputText value="#{post.text}" />
+												</dd>
+												<br></br>
+
+											</ui:repeat>
+										</dl>
+									</h:panelGrid>
+
+								</p:panel>
+
+							</p:panel>
+						</div>
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+		</div>
+	</h:form>
+</h:body>
+</html>

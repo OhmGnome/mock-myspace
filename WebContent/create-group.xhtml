@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link rel="shortcut icon" href="resources/images/f.ico"
+		type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Oxygen'
+		rel='stylesheet' type='text/css' />
+	<h:outputStylesheet library="css" name="style.css" />
+	<title>Create Group</title>
+</h:head>
+<h:body>
+	<h:form>
+		<ui:insert name="header">
+			<ui:include src="common-header.xhtml" />
+		</ui:insert>
+		<div class="content">
+			<p:layout style="margin: 0 auto" size="600">
+
+				<p:layoutUnit position="west" resizable="true" size="400"
+					minSize="40" maxSize="300" style="background-color: #ADD8E6">
+					<h:form>
+						<h2 style="margin-left: 20px">Members</h2>
+						<p:separator />
+
+						<p:panel>
+							<h:panelGrid id="members">
+								<table>
+									<ui:repeat varStatus="status" var="member"
+										value="#{grouBean.members}">
+										<tr>
+											<td><p:commandLink value="#{member.name}"
+													action="#{profileBean.selectUserByUserName(member.name)}"
+													process="@form" update="@form" /></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+					</h:form>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center" style="height: 72vh; width: 400px">
+					<h:form>
+						<div class="center">
+							<p:panel style="border: none; ">
+								<h2 style="margin-left: 20px">Create New Group</h2>
+								<p:separator />
+								<p:outputLabel value="Group Owner: #{profileBean.user.name}" />
+								<p:commandButton value="Create"
+									style="margin: 20px 20px 10px 10px; float:right" action="#{groupBean.createGroup()}"
+									process="@form" update="@form" />
+								<br />
+								<p:outputLabel value="Group Name: " />
+								<p:inputText value="#{groupBean.groupName}" required="true" />
+				
+							</p:panel>
+						</div>
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+		</div>
+	</h:form>
+</h:body>
+</html>

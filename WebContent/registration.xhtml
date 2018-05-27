@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link rel="shortcut icon" href="resources/images/f.ico"
+		type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Oxygen'
+		rel='stylesheet' type='text/css' />
+	<h:outputStylesheet library="css" name="style.css" />
+	<title>Registration</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel class="header">
+			<div style="width: 400px; height: 4a0px; display: inline-table;">
+				<span> <h:link class="homeButton" outcome="home"
+						value="app" /></span>
+
+			</div>
+		</p:panel>
+		<div style="margin-left: 100px">
+
+			<h2 class="font">Registration</h2>
+			<p:separator />
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+			<h:panelGrid id="addressGrid" columns="3">
+
+				<p:outputLabel for="firstName:" value="First Name:" />
+				<p:inputText id="firstName"
+					value="#{registrationBean.person.firstName}" />
+				<p:message for="firstName" />
+
+				<p:outputLabel for="lastName:" value="Last Name:" />
+				<p:inputText id="lastName"
+					value="#{registrationBean.person.lastName}" />
+				<p:message for="lastName" />
+
+
+				<p:outputLabel value="Username:" />
+				<p:inputText id="username" value="#{registrationBean.user.name}"
+					required="true" feedback="true">
+					<f:validator binding="#{userNameValidation}"></f:validator>
+				</p:inputText>
+				<p:message for="username" />
+
+				<p:outputLabel value="Password:" />
+				<p:password id="password" value="#{registrationBean.password}"
+					required="true" feedback="true" />
+			</h:panelGrid>
+			<p:commandButton value="Register" validateClient="true"
+				process="@form" update="@form" style="margin-top: 10px"
+				action="#{registrationBean.register()}" />
+
+		</div>
+	</h:form>
+</h:body>
+</html>

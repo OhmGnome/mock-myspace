@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 2, 2015 9:17:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.mock.fb.model.User" table="user" catalog="fbdb" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <set name="groups" table="group" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="owner" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Group" />
+        </set>
+        <set name="groupPosts" table="group_post" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="poster" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.GroupPost" />
+        </set>
+        <set name="friendsesForUserId" table="friends" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Friends" />
+        </set>
+        <set name="groupMembers" table="group_member" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="member" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.GroupMember" />
+        </set>
+        <set name="postsForPosterId" table="post" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="poster_id" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Post" />
+        </set>
+        <set name="postsForWallId" table="post" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="wall_id" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Post" />
+        </set>
+        <set name="persons" table="person" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Person" />
+        </set>
+        <set name="friendsesForFriendId" table="friends" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="friend_id" not-null="true" />
+            </key>
+            <one-to-many class="com.mock.fb.model.Friends" />
+        </set>
+    </class>
+</hibernate-mapping>

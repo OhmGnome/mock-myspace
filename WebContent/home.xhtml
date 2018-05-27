@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link rel="shortcut icon" href="resources/images/f.ico"
+		type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Oxygen'
+		rel='stylesheet' type='text/css' />
+	<h:outputStylesheet library="css" name="style.css" />
+	<title>Home</title>
+</h:head>
+<h:body>
+	<h:form>
+		<ui:insert name="header">
+			<ui:include src="common-header.xhtml" />
+		</ui:insert>
+		<div class="content">
+			<p:layout size="600" style="margin: 0 auto">
+				<p:layoutUnit position="west" resizable="true" size="400"
+					minSize="40" maxSize="300" style="background-color: #ADD8E6">
+					<h:form>
+						<h2 style="margin-left: 20px">Friends</h2>
+						<p:separator />
+
+						<p:panel>
+							<h:panelGrid id="friends">
+								<table>
+									<ui:repeat varStatus="status" var="friend"
+										value="#{profileBean.friends}">
+										<tr>
+											<td><p:commandLink value="#{friend.name}"
+													action="#{profileBean.selectUserByUserName(friend.name)}"
+													process="@form" update="@form" /></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+						<h2 style="margin-left: 20px">Friend Requests</h2>
+						<p:panel>
+							<h:panelGrid id="friendRequests"
+								rendered="#{authenticationBean.isLoggedIn() and profileBean.thisUser()}">
+								<table>
+									<ui:repeat varStatus="status" var="friend"
+										value="#{profileBean.waitingAcceptFriends}">
+										<tr>
+											<td><h:outputText value="#{friend.name}" /></td>
+											<td><p:commandLink value="accept"
+													action="#{profileBean.acceptFriendRequest(friend.name)}"
+													process="@form" update="@form" /></td>
+											<td><p:commandLink value="decline"
+													action="#{profileBean.declineFriendRequest(friend.name)}"
+													process="@form" update="@form" /></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+						<h2 style="margin-left: 20px">Groups</h2>
+						<p:separator />
+
+						<p:panel id="groups">
+							<h:panelGrid>
+								<table>
+									<ui:repeat varStatus="status" var="group"
+										value="#{profileBean.groups}">
+										<tr>
+											<td><p:commandLink
+													action="#{groupBean.viewGroup(group.name)}"
+													value="#{group.name}" process="@form" update="@form"/></td>
+													<p:spacer></p:spacer>
+													<td><p:commandLink
+													action="#{groupBean.deletegroupByGroupName(group.name)}"
+													value="delete" process="@form" update="@form"/></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+						<h2 style="margin-left: 20px">Group Invites</h2>
+						<p:panel>
+							<h:panelGrid id="groupInvites"
+								rendered="#{authenticationBean.isLoggedIn() and profileBean.thisUser()}">
+								<table>
+									<ui:repeat varStatus="status" var="group"
+										value="#{profileBean.waitingAcceptGroups}">
+										<tr>
+											<td><h:outputText value="#{group.name}" /></td>
+											<td><p:commandLink value="accept"
+													action="#{profileBean.acceptGroupInvite(group)}"
+													process="@form" update="@form" /></td>
+											<td><p:commandLink value="decline"
+													action="#{profileBean.declineGroupInvite(group)}"
+													process="@form" update="@form" /></td>
+										</tr>
+									</ui:repeat>
+								</table>
+							</h:panelGrid>
+						</p:panel>
+					</h:form>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center"
+					style="background-color:#ADD8E6; height: 72vh">
+					<h:form>
+						<div class="center">
+							<p:panel style="border: none; height: 100px"
+								rendered="#{profileBean.userOfThePage()}">
+
+								<p:outputLabel value="#{profileBean.user.name}"
+									style="width:20%; text-align: right; float: left; font-size: 30px" />
+								<p:outputPanel styleClass="none"
+									rendered="#{authenticationBean.isLoggedIn() and !profileBean.thisUser()}">
+									<p:commandButton value="Friend"
+										rendered="#{!profileBean.isFriend()}"
+										disabled="#{profileBean.isWaiting()}" class="friendButton"
+										icon="ui-icon-circlesmall-plus"
+										action="#{profileBean.friend()}" process="@form"
+										update="@form" />
+									<p:commandButton value="Ignore"
+										disabled="#{profileBean.isIgnored(profileBean.auth.user, profileBean.user)}"
+										class="friendButton" icon="ui-icon-circlesmall-close"
+										action="#{profileBean.ignore()}" process="@form"
+										update="@form" />
+									<p:commandButton value="Unfriend"
+										rendered="#{profileBean.isFriend()}" class="friendButton"
+										icon="ui-icon-circlesmall-minus"
+										action="#{profileBean.unFriend()}" process="@form"
+										update="@form" />
+								</p:outputPanel>
+							</p:panel>
+							<p:panel style="border: none">
+								<p:panel
+									rendered="#{authenticationBean.isLoggedIn() and !profileBean.isIgnored(profileBean.user,profileBean.auth.user)}"
+									style="border:none; background:  #ADD8E6; height: 70px">
+									<p:inputTextarea id="text" rows="2" cols="33"
+										placeholder="What's on your mind?" value="#{profileBean.text}"
+										maxlength="500" counter="display"
+										counterTemplate="{0} characters remaining." class="postBox" />
+
+									<p:commandButton value="Post" action="#{profileBean.addPost()}"
+										class="postButton" process="@form" update="@form"></p:commandButton>
+								</p:panel>
+
+								<h:outputText id="display" style="margin-right: 400px" />
+
+								<p:panel id="posts" header="Posts" class="posts">
+									<h:panelGrid>
+										<dl>
+											<ui:repeat var="post" value="#{profileBean.posts}"
+												varStatus="status">
+												<dt>
+													<p:commandLink
+														action="#{profileBean.selectUserByUserName(post.userByPosterId.name)}"
+														process="@form" update="@form"
+														value="#{post.userByPosterId.name}" />
+													<h:outputText value=" #{post.timestamp}" />
+												</dt>
+												<dd>
+													<h:outputText value="#{post.text}" />
+												</dd>
+												<br></br>
+											</ui:repeat>
+										</dl>
+									</h:panelGrid>
+								</p:panel>
+							</p:panel>
+						</div>
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet
+		name='http://fonts.googleapis.com/css?family=Oxygen' />
+	<h:outputStylesheet library="/resources/css" name="style.css" />
+	<title>Home</title>
+</h:head>
+<h:body>
+	<ui:composition>
+		<div class="header">
+			<h2 class="font left userMenu">FBclone</h2>
+			<p:menubar class="menubar left">
+				<p:submenu label="#{authenticationBean.user.name}"
+					icon="ui-icon-contact"
+					rendered="#{authenticationBean.isLoggedIn()}" class="topButton">
+					<p:menuitem value="Home"
+						action="#{profileBean.selectUserByUserName(authenticationBean.user.name)}"
+						icon="ui-icon-home" update="@form" />
+					<p:menuitem value="Create Group" icon="ui-icon-squaresmall-plus"
+						url="create-group.xhtml" action="#{groupBean.createGroupPage()}"/>
+				</p:submenu>
+				<f:facet name="options">
+					<p:inputText id="search" size="15" class="searchInput"
+						placeholder="Search Users"
+						value="#{searchUserBean.userNameFragment}" />
+					<p:commandButton value="Search"
+						action="#{searchUserBean.searched()}" ajax="false"
+						icon="ui-icon-search" process="@form" update="@form"
+						class="search topButton" />
+				</f:facet>
+
+			</p:menubar>
+			<h:form>
+				<p:menubar class="menubar">
+					<f:facet name="options">
+						<p:commandButton value="Login" action="#{loginBean.login()}"
+							process="@form" update="@form"
+							rendered="#{!authenticationBean.isLoggedIn()}" class="topButton" />
+						<p:commandButton value="Logout"
+							action="#{authenticationBean.logout()}" process="@form"
+							update="@form" rendered="#{authenticationBean.isLoggedIn()}"
+							class="topButton" />
+						<p:commandButton value="Register" action="#{loginBean.register()}"
+							process="@form" update="@form"
+							rendered="#{!authenticationBean.isLoggedIn()}" class="topButton" />
+						<p:inputText size="10" class="searchInput" placeholder="Username"
+							value="#{loginBean.user.name}"
+							rendered="#{!authenticationBean.isLoggedIn()}" />
+						<p:password size="10" class="searchInput" placeholder="Password"
+							value="#{loginBean.password}"
+							rendered="#{!authenticationBean.isLoggedIn()}" />
+					</f:facet>
+
+				</p:menubar>
+
+
+			</h:form>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

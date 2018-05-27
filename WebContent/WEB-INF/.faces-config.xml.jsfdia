@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="register::#registration.xhtml" NAME="output"
+    PATH="/registration.xhtml" TARGET="rules:#registration.xhtml"
+    TITLE="register" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="home::#home.xhtml" NAME="output1"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="following::#secured#following.xhtml"
+    NAME="output2" PATH="/secured/following.xhtml"
+    TARGET="rules:#secured#following.xhtml" TITLE="following" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="profile::#profile.xhtml" NAME="output3"
+    PATH="/profile.xhtml" TARGET="rules:#profile.xhtml" TITLE="profile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="search-results::#search-results.xhtml"
+    NAME="output4" PATH="/search-results.xhtml"
+    TARGET="rules:#search-results.xhtml" TITLE="search-results" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="login-success::#home.xhtml" NAME="output5"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="login-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="login-failure::#home.xhtml" NAME="output6"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="login-failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="logged-out::#home.xhtml" NAME="output7"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="logged-out" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="searched::#search-results.xhtml"
+    NAME="output8" PATH="/search-results.xhtml"
+    TARGET="rules:#search-results.xhtml" TITLE="searched" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="go-user-profile::#home.xhtml" NAME="output9"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="go-user-profile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="post-added-success::#home.xhtml"
+    NAME="output10" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="post-added-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="friend::#home.xhtml" NAME="output11"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="friend" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="unfriended::#home.xhtml" NAME="output12"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="unfriended" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="accept-success::#home.xhtml" NAME="output13"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="accept-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="decline-success::#home.xhtml"
+    NAME="output14" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="decline-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="ignore-success::#home.xhtml" NAME="output15"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="ignore-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="view-group::#group.xhtml" NAME="output16"
+    PATH="/group.xhtml" TARGET="rules:#group.xhtml" TITLE="view-group" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="delete-group::#home.xhtml" NAME="output17"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="delete-group" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#registration.xhtml"
+  PATH="/registration.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#registration.xhtml:0" NAME="item"
+   PATH="/registration.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="registration-success::#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="registration-success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="registration-failure::#registration.xhtml"
+    NAME="output1" PATH="/registration.xhtml"
+    TARGET="rules:#registration.xhtml" TITLE="registration-failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#search-results.xhtml"
+  PATH="/search-results.xhtml" SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#profile.xhtml" PATH="/profile.xhtml"
+  SHAPE="304,385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
+  SHAPE="528,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#secured#following.xhtml"
+  PATH="/secured/following.xhtml" SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#create-group.xhtml"
+  PATH="/create-group.xhtml" SHAPE="304,625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#create-group.xhtml:0" NAME="item"
+   PATH="/create-group.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="created-group::#group.xhtml" NAME="output"
+    PATH="/group.xhtml" TARGET="rules:#group.xhtml"
+    TITLE="created-group" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#group.xhtml" PATH="/group.xhtml"
+  SHAPE="448,1057,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#group.xhtml:0" NAME="item"
+   PATH="/group.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="group-post::#group.xhtml" NAME="output"
+    PATH="/group.xhtml" TARGET="rules:#group.xhtml" TITLE="group-post" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

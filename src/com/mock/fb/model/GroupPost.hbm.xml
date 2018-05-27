@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 2, 2015 9:17:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.mock.fb.model.GroupPost" table="group_post" catalog="fbdb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <timestamp name="timestamp" column="timestamp" />
+        <many-to-one name="group" class="com.mock.fb.model.Group" fetch="select">
+            <column name="group_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="com.mock.fb.model.User" fetch="select">
+            <column name="poster" not-null="true" />
+        </many-to-one>
+        <property name="text" type="string">
+            <column name="text" length="500" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
